@@ -1,0 +1,20 @@
+.post-component {
+  position: relative;
+
+  .post-image {
+    text-align: center;
+  }
+
+  .post-container {
+    display: flex;
+    position: relative;
+    .post-article {
+      width: 60%;
+      margin: 15px auto;
+    }
+
+    .post-relative-list {
+      width: 20%;
+    }
+  }
+}

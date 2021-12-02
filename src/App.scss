@@ -1,0 +1,14 @@
+:root {
+  --gray-shadow: rgb(199, 196, 196);
+  --primary-bg-color: #1962a7;
+  --secondary-bg-color: #f8f8f8;
+  --third-bg-color: #292c2f;
+  --primary-font-color: #fff;
+  --box-shadow-1: 2px 2px 5px #dadcdf;
+  --box-shadow-2: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  --hover-color: rgba(167, 166, 166, 0.205);
+}
+
+.App {
+  background-color: var(--secondary-bg-color);
+}

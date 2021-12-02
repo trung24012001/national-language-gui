@@ -1,0 +1,8 @@
+.game-page {
+    display: flex;
+    padding: 30px;
+
+    & > div {
+        margin: 30px;
+    }
+}
