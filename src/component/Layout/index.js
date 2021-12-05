@@ -3,7 +3,7 @@ import {
     Route
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getCategories, getHashtags, getPosts } from '../../store/reducer/post.reducer';
+import { getCategories, getCategoriesFooter, getHashtags, getHashtagsFooter, getPosts } from '../../store/reducer/post.reducer';
 import Footer from '../Footer';
 import Navbar from '../Navbar';
 import './layout.scss'
@@ -18,7 +18,9 @@ function Layout({ children, ...rest }) {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCategories())
+        dispatch(getCategoriesFooter())
         dispatch(getHashtags())
+        dispatch(getHashtagsFooter())
     }, [])
     return (
         <Route

@@ -19,9 +19,19 @@ export const getCategories = createAsyncThunk('posts/getCategories', async () =>
     return response.data;
 })
 
+export const getCategoriesFooter = createAsyncThunk('posts/getCategoriesFooter', async() => {
+    const response = await service.get(`/api/category/footer`);
+    return response.data;
+})
+
 export const getHashtags = createAsyncThunk('posts/getHashtags', async () => {
     const response = await service.get(`/api/tag`);
 
+    return response.data;
+})
+
+export const getHashtagsFooter = createAsyncThunk('posts/getHashtagsFooter', async() => {
+    const response = await service.get(`/api/tag/footer`);
     return response.data;
 })
 
@@ -36,7 +46,9 @@ export const postSlice = createSlice({
     initialState: {
         posts: [],
         categories: [],
+        categoriesFooter: [],
         hashtags: [],
+        hashtagsFooter: [],
         post: null,
         initLoading: false,
     },
@@ -74,12 +86,24 @@ export const postSlice = createSlice({
         [getCategories.rejected]: (state, action) => {
             console.log('could not get category')
         },
+        [getCategoriesFooter.fulfilled]: (state, action) => {
+            state.categoriesFooter = action.payload;
+        },
+        [getCategoriesFooter.rejected]: (state, action) => {
+            state.categoriesFooter = action.payload;
+        },
         [getHashtags.fulfilled]: (state, action) => {
             state.hashtags = action.payload;
 
         },
         [getHashtags.rejected]: (state, action) => {
             state.hashtags = action.payload;
+        },
+        [getHashtagsFooter.fulfilled]: (state, action) => {
+            state.hashtagsFooter = action.payload;
+        },
+        [getHashtagsFooter.rejected]: (state, action) => {
+            state.hashtagsFooter = action.payload;
         },
         [getPostCategory.pending]: (state, action) => {
             state.initLoading = true;
