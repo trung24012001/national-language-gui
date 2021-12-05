@@ -41,7 +41,7 @@ export default function Navbar() {
                         <Menu
                             PaperProps={{
                                 sx: {
-                                    width: '200px',
+                                    width: '230px',
                                     background: 'var(--third-bg-color)',
                                     color: '#fff',
                                 }
@@ -56,7 +56,12 @@ export default function Navbar() {
                         >
                             {categories.map(cate => {
                                 return (
-                                    <MenuItem key={cate.id} onClick={e => handleChooseCate(cate.id)}>{cate.name}</MenuItem>
+                                    <MenuItem key={cate.id} 
+                                    sx={{
+                                       margin: '5px',
+                                       padding: '10px'
+                                    }}
+                                    onClick={e => handleChooseCate(cate.id)}>{cate.name}</MenuItem>
 
                                 );
                             })}

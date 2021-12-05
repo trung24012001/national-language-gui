@@ -1,263 +1,264 @@
 .footer {
-    .contact {
-        background-color: #333;
-        color: #fff;
-        padding: 50px 0 50px;
-        display: flex;
-        justify-content: center;
-        .section {
-            width: 80%;
-        }
-        .contact-heading {
-            text-align: center;
-            font-size: 44px;
-            font-weight: 500;
-            line-height: 55px;
-            margin-bottom: 20px;
-        }
-        .contact-desc {
-            text-align: center;
-            font-size: 16px;
-            margin-bottom: 32px;
-        }
-        .my-contact-heading {
-            font-size: 24px;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        .my-contact span {
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 18px;
-            margin-bottom: 10px;
-            margin-left: 4px;
-            display: inline-block;
-        }
-        .my-contact-email,
-        .my-contact-phone,
-        .my-contact-address {
-            margin-bottom: 20px;
-        }
-        .address-text {
-            font-size: 16px;
-        }
-        .address-icon,
-        .email-icon,
-        .phone-icon {
-            margin-top: -4px;
-        }
-        .email-text,
-        .phone-text {
-            color: #fff;
-            font-size: 16px;
-            line-height: 18px;
-        }
-        .email-text:hover,
-        .phone-text:hover {
-            text-decoration: none;
-            color: #dd125f;
-        }
-        .form-contact-control {
-            width: 100%;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .form-input {
-            background-color: #333;
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 5px;
-            width: 100%;
-            outline: none;
-            position: relative;
-            font-size: 16px;
-            border: 2px solid #ccc;
-        }
-        .form-label {
-            position: absolute;
-            left: 8px;
-            top: 11px;
-            padding: 0 6px;
-            color: #fff;
-            font-size: 16px;
-            transition: top 0.2s ease-in, left 0.2s ease-in, font-size 0.2s ease-in;
-            pointer-events: none;
-        }
-        .form-input:focus {
-            border-color: #dd125f;
-        }
-        .form-input:focus~.form-label,
-        .form-input:not(:placeholder-shown)~.form-label {
-            top: -10px;
-            left: 8px;
-            font-size: 13px;
-            background-color: #333;
-            border-radius: 3px;
-        }
-        .form-send {
-            outline: none;
-            float: right;
-            width: 130px;
-            height: 42px;
-            font-size: 16px;
-            font-weight: 500;
-            background-color: #dd125f;
-            border-color: #dd125f;
-            position: relative;
-            z-index: 1;
-            color: #fff;
-        }
-        .form-send:hover {
-            color: #dd125f;
-        }
-        .form-send:before {
-            transition: all 0.5s ease;
-            position: absolute;
-            content: "";
-            top: 0;
-            bottom: 0;
-            right: 50%;
-            left: 50%;
-            opacity: 0;
-            background-color: #fff;
-            border-radius: 3px;
-        }
-        .form-send:hover:before {
-            transition: all 0.5s ease;
-            right: 0;
-            left: 0;
-            opacity: 1;
-            z-index: -1;
-        }
+  margin-top: 100px;
+  .contact {
+    background-color: #333;
+    color: #fff;
+    padding: 50px 0 50px;
+    display: flex;
+    justify-content: center;
+    .section {
+      width: 80%;
+    }
+    .contact-heading {
+      text-align: center;
+      font-size: 44px;
+      font-weight: 500;
+      line-height: 55px;
+      margin-bottom: 20px;
+    }
+    .contact-desc {
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+    .my-contact-heading {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .my-contact span {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 18px;
+      margin-bottom: 10px;
+      margin-left: 4px;
+      display: inline-block;
+    }
+    .my-contact-email,
+    .my-contact-phone,
+    .my-contact-address {
+      margin-bottom: 20px;
+    }
+    .address-text {
+      font-size: 16px;
+    }
+    .address-icon,
+    .email-icon,
+    .phone-icon {
+      margin-top: -4px;
+    }
+    .email-text,
+    .phone-text {
+      color: #fff;
+      font-size: 16px;
+      line-height: 18px;
+    }
+    .email-text:hover,
+    .phone-text:hover {
+      text-decoration: none;
+      color: #dd125f;
+    }
+    .form-contact-control {
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .form-input {
+      background-color: #333;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      width: 100%;
+      outline: none;
+      position: relative;
+      font-size: 16px;
+      border: 2px solid #ccc;
+    }
+    .form-label {
+      position: absolute;
+      left: 8px;
+      top: 11px;
+      padding: 0 6px;
+      color: #fff;
+      font-size: 16px;
+      transition: top 0.2s ease-in, left 0.2s ease-in, font-size 0.2s ease-in;
+      pointer-events: none;
+    }
+    .form-input:focus {
+      border-color: #dd125f;
+    }
+    .form-input:focus ~ .form-label,
+    .form-input:not(:placeholder-shown) ~ .form-label {
+      top: -10px;
+      left: 8px;
+      font-size: 13px;
+      background-color: #333;
+      border-radius: 3px;
+    }
+    .form-send {
+      outline: none;
+      float: right;
+      width: 130px;
+      height: 42px;
+      font-size: 16px;
+      font-weight: 500;
+      background-color: #dd125f;
+      border-color: #dd125f;
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+    .form-send:hover {
+      color: #dd125f;
+    }
+    .form-send:before {
+      transition: all 0.5s ease;
+      position: absolute;
+      content: "";
+      top: 0;
+      bottom: 0;
+      right: 50%;
+      left: 50%;
+      opacity: 0;
+      background-color: #fff;
+      border-radius: 3px;
+    }
+    .form-send:hover:before {
+      transition: all 0.5s ease;
+      right: 0;
+      left: 0;
+      opacity: 1;
+      z-index: -1;
+    }
+    .row {
+      display: flex;
+      .my-contact {
+        width: 40%;
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+      .your-contact {
+        width: 60%;
+        padding-right: 15px;
+        padding-left: 15px;
         .row {
-            display: flex;
-            .my-contact {
-                width: 40%;
-                padding-right: 15px;
-                padding-left: 15px;
-            }
-            .your-contact {
-                width: 60%;
-                padding-right: 15px;
-                padding-left: 15px;
-                .row {
-                    width: 100%;
-                    .input-name,
-                    .input-email {
-                        width: 45%;
-                    }
-                    .input-name {
-                        margin-right: 10%;
-                    }
-                    .input-full {
-                        width: 100%;
-                    }
-                }
-            }
-        }
-    }
-    .footer-main {
-        padding: 50px 0 0;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        .container {
-            width: 80%;
-        }
-        .footer-intro,
-        .footer-follow,
-        .footer-category,
-        .footer-hashtag {
-            width: 25%;
-            padding: 0px 15px;
-        }
-        .footer-wrapper {
-            padding-bottom: 40px;
-            display: flex;
-        }
-        .footer-heading {
-            font-size: 20px;
-            color: #333;
-            font-weight: 500;
-            position: relative;
-            margin-bottom: 25px;
-        }
-        .footer-heading::after {
-            position: absolute;
-            content: "";
-            height: 2px;
-            width: 50%;
-            left: 0;
-            top: calc(100% + 8px);
-            border-radius: 15px;
-            background-color: #839FAD;
-        }
-        .footer-intro-desc {
-            font-size: 16px;
-            color: #333;
-            text-align: justify;
-            letter-spacing: 0.3px;
-            line-height: 18px;
-        }
-        .footer-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .footer-item__link {
-            color: #333;
-            font-size: 16px;
-            display: inline-block;
-            padding: 3px 4px;
-            text-decoration: none;
-        }
-        .footer-item__link:hover {
-            text-decoration: none;
-            color: #dd125f;
-        }
-        .footer-link-icon {
-            margin-top: -4px;
-            margin-right: 5px;
-        }
-        .footer-contact-text {
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-        .footer-email {
-            outline: none;
-            border-radius: 5px;
-            padding: 8px 12px;
+          width: 100%;
+          .input-name,
+          .input-email {
+            width: 45%;
+          }
+          .input-name {
+            margin-right: 10%;
+          }
+          .input-full {
             width: 100%;
-            font-size: 16px;
-            display: block;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
+          }
         }
-        .footer-sub {
-            width: 100px;
-            font-size: 16px;
-            padding: 8px 12px;
-            background-color: #dd125f;
-        }
-        .footer-list {
-            padding-left: 0;
-            list-style: none;
-            li {
-                display: block;
-            }
-            a {
-                color: #737373;
-                text-decoration: none;
-            }
-            a:active,
-            a:focus,
-            a:hover {
-                color: #3366cc;
-                text-decoration: none;
-            }
-            .footer-links.inline li {
-                display: inline-block;
-            }
-        }
+      }
     }
+  }
+  .footer-main {
+    padding: 50px 0 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    .container {
+      width: 80%;
+    }
+    .footer-intro,
+    .footer-follow,
+    .footer-category,
+    .footer-hashtag {
+      width: 25%;
+      padding: 0px 15px;
+    }
+    .footer-wrapper {
+      padding-bottom: 40px;
+      display: flex;
+    }
+    .footer-heading {
+      font-size: 20px;
+      color: #333;
+      font-weight: 500;
+      position: relative;
+      margin-bottom: 25px;
+    }
+    .footer-heading::after {
+      position: absolute;
+      content: "";
+      height: 2px;
+      width: 50%;
+      left: 0;
+      top: calc(100% + 8px);
+      border-radius: 15px;
+      background-color: #839fad;
+    }
+    .footer-intro-desc {
+      font-size: 16px;
+      color: #333;
+      text-align: justify;
+      letter-spacing: 0.3px;
+      line-height: 18px;
+    }
+    .footer-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .footer-item__link {
+      color: #333;
+      font-size: 16px;
+      display: inline-block;
+      padding: 3px 4px;
+      text-decoration: none;
+    }
+    .footer-item__link:hover {
+      text-decoration: none;
+      color: #dd125f;
+    }
+    .footer-link-icon {
+      margin-top: -4px;
+      margin-right: 5px;
+    }
+    .footer-contact-text {
+      color: #333;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .footer-email {
+      outline: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      width: 100%;
+      font-size: 16px;
+      display: block;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+    }
+    .footer-sub {
+      width: 100px;
+      font-size: 16px;
+      padding: 8px 12px;
+      background-color: #dd125f;
+    }
+    .footer-list {
+      padding-left: 0;
+      list-style: none;
+      li {
+        display: block;
+      }
+      a {
+        color: #737373;
+        text-decoration: none;
+      }
+      a:active,
+      a:focus,
+      a:hover {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .footer-links.inline li {
+        display: inline-block;
+      }
+    }
+  }
 }

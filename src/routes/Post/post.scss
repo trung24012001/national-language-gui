@@ -1,5 +1,9 @@
 .post-component {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   .post-image {
     text-align: center;
@@ -11,6 +15,19 @@
     .post-article {
       width: 60%;
       margin: 15px auto;
+
+      .post-title {
+        margin-bottom: 30px;
+        .hash-tag {
+          a {
+            font-size: 1.2rem;
+            text-decoration: none;
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+        }
+      }
     }
 
     .post-relative-list {

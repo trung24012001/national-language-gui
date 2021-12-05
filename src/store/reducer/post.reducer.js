@@ -1,10 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { service } from '../../ultils'
 
-export const getPosts = createAsyncThunk('posts/getPosts', async () => {
-    const response = await service.get('/api/post');
+export const getPosts = createAsyncThunk('posts/getPosts', async (payload, { rejectWithValue }) => {
 
-    return response.data;
+    try {
+        let response = null;
+        if (payload.cateId) {
+            response = await service.get(`/api/category/${payload.cateId}/all-post`);
+        } else if (payload.hashTagId) {
+            response = await service.get(`/api/hashtag/${payload.hashTagId}/all-post`);
+        } else {
+            response = await service.get('/api/post');
+        }
+        return response.data;
+
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue({ error: 'could not get posts' })
+    }
+
+
 })
 
 export const getOnePost = createAsyncThunk('posts/getOnePost', async ({ postId }) => {
@@ -19,26 +34,36 @@ export const getCategories = createAsyncThunk('posts/getCategories', async () =>
     return response.data;
 })
 
-export const getCategoriesFooter = createAsyncThunk('posts/getCategoriesFooter', async() => {
-    const response = await service.get(`/api/category/footer`);
-    return response.data;
-})
-
 export const getHashtags = createAsyncThunk('posts/getHashtags', async () => {
     const response = await service.get(`/api/tag`);
 
     return response.data;
 })
 
-export const getHashtagsFooter = createAsyncThunk('posts/getHashtagsFooter', async() => {
+export const getCategoriesFooter = createAsyncThunk('posts/getCategoriesFooter', async () => {
+    const response = await service.get(`/api/category/footer`);
+    return response.data;
+})
+
+export const getHashtagsFooter = createAsyncThunk('posts/getHashtagsFooter', async () => {
     const response = await service.get(`/api/tag/footer`);
     return response.data;
 })
 
-export const getPostCategory = createAsyncThunk('posts/getPostCategory', async ({ cateId }) => {
-    const response = await service.get(`/api/category/${cateId}/all-post`);
+
+export const sendContact = createAsyncThunk('posts/sendContact', async ({ name, email, title, content }) => {
+    console.log(name, email, title, content)
+    const response = await axios.post('/api/contact', {
+        name,
+        email,
+        title,
+        content
+    })
+
     return response.data;
 })
+
+
 
 
 export const postSlice = createSlice({
@@ -64,7 +89,7 @@ export const postSlice = createSlice({
             state.initLoading = false;
         },
         [getPosts.rejected]: (state, action) => {
-            console.log('could not get posts')
+            console.log(action.payload)
             state.initLoading = false;
         },
         [getOnePost.pending]: (state, action) => {
@@ -77,7 +102,7 @@ export const postSlice = createSlice({
             state.initLoading = false;
         },
         [getOnePost.rejected]: (state, action) => {
-            console.log('could not get posts')
+            console.log('could not get a post')
             state.initLoading = false;
         },
         [getCategories.fulfilled]: (state, action) => {
@@ -105,21 +130,9 @@ export const postSlice = createSlice({
         [getHashtagsFooter.rejected]: (state, action) => {
             state.hashtagsFooter = action.payload;
         },
-        [getPostCategory.pending]: (state, action) => {
-            state.initLoading = true;
-            state.posts = []
-        },
-        [getPostCategory.fulfilled]: (state, action) => {
-            state.initLoading = false;
-            state.posts = action.payload;
-
-        },
-        [getPostCategory.rejected]: (state, action) => {
-            state.initLoading = false;
-            state.hashtags = action.payload;
-        }
     },
     reducers: {
+
     }
 })
 

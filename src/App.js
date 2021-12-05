@@ -24,13 +24,22 @@ export default function App() {
         <Layout exact path="/game">
           <GamePage />
         </Layout>
-        <Layout path="/post/:postId">
+        <Layout exact path="/post/:postId">
           <Post />
         </Layout>
         <Layout path="/category/:cateId">
           <CategoryPost />
         </Layout>
+        <Layout path="/hashtag/:cateId">
+          <CategoryPost />
+        </Layout>
         <Route path="/game/hangman">
+          <HangmanGame />
+        </Route>
+        <Route path="/game/memory">
+          <HangmanGame />
+        </Route>
+        <Route path="/game/quizz">
           <HangmanGame />
         </Route>
       </Switch>

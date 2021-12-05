@@ -1,23 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './homePage.scss';
-import { serviceUrl } from '../../ultils';
-
-import Loading from '../../component/Loading'
-
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import { useHistory } from 'react-router';
-import parser from 'html-react-parser';
 import SearchIcon from '@mui/icons-material/Search';
 import LoadingButton from '@mui/lab/LoadingButton';
 import _ from 'lodash';
 import { getPosts } from '../../store/reducer/post.reducer';
 import Posts from '../../component/Posts';
+import SlideShow from '../../component/SlideShow';
 
 
 export default function HomePage() {
@@ -30,12 +20,19 @@ export default function HomePage() {
 
 
     useEffect(() => {
-        dispatch(getPosts())
+        dispatch(getPosts({}))
 
     }, [])
 
     const searchDebounce = useCallback(_.debounce(async (text) => {
-        let search = posts.filter(post => post.title.toLowerCase().includes(text));
+        let search = posts.filter(post => {
+            console.log(post.category.name.toLowerCase())
+            let check = post.title.toLowerCase().includes(text);
+            if (!check) {
+                check = post.category.name.toLowerCase().includes(text);
+            }
+            return check;
+        });
         setSearchList(search);
         setSearchLoading(false);
     }, 500))
@@ -60,7 +57,9 @@ export default function HomePage() {
             setTextSearch('');
             setSearchList([]);
         }}>
+
             <div className="home-center">
+                <SlideShow />
                 <div className="home-search">
                     <div className="search-post">
                         <SearchIcon />
@@ -86,10 +85,23 @@ export default function HomePage() {
                                                     onClick={event => handleShowPost(event, post.id)}
 
                                                 >
-                                                    <div style={{}}>
+                                                    <div style={{
+                                                        width: '120px',
+                                                        textOverflow: 'ellipsis',
+                                                        whiteSpace: 'nowrap',
+                                                        overflow: 'hidden',
+                                                        fontWeight: '500'
+
+                                                    }}>
                                                         {post.category.name}
                                                     </div>
-                                                    <div style={{ marginLeft: "15px" }}>
+                                                    <div style={{
+                                                        marginLeft: "15px",
+                                                        width: '500px',
+                                                        textOverflow: 'ellipsis',
+                                                        whiteSpace: 'nowrap',
+                                                        overflow: 'hidden'
+                                                    }}>
                                                         {post.title}
                                                     </div>
                                                 </div>

@@ -8,6 +8,7 @@ export default function GamePage() {
         <div className="game-page">
             <GameCard name='Hang Man' path='hangman' />
             <GameCard name='Memory Game' path='memory' />
+            <GameCard name='Quizz' path='quizz' />
         </div>
     )
 }

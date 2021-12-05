@@ -1,41 +1,41 @@
 
 import './footer.scss'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { serviceUrl } from '../../ultils/config';
-import Popup from '../Popup'
+import Popup from '../Popup';
 
-export default function Footer()
-{
+import { sendContact } from '../../store/reducer/post.reducer';
+
+export default function Footer() {
     const categoriesFooter = useSelector(state => state.postReducer.categoriesFooter)
     const hashtagsFooter = useSelector(state => state.postReducer.hashtagsFooter)
     const [statusPopup, setStatusPopup] = useState(false)
-
-    const submitContact = (e) => {
+    const dispatch = useDispatch()
+    const submitContact = async (e) => {
         e.preventDefault(e)
         setStatusPopup(true)
-        var inputs = e.target.getElementsByTagName('input');
-        var name = inputs[0].value
-        var email = inputs[1].value
-        var title = inputs[2].value
-        var content = e.target.getElementsByTagName('textarea')[0].value
-        axios({
-            method: 'post',
-            url: serviceUrl + '/api/contact',
-            data: { 
-                name : name,
-                email : email,
-                title : title,
-                content : content
-            }
-        }).then(function () {
-            inputs[0].value = ''
-            inputs[1].value = ''
-            inputs[2].value = ''
-            e.target.getElementsByTagName('textarea')[0].value = ''
-        });
+        let inputs = e.target.getElementsByTagName('input');
+        let name = inputs[0].value
+        let email = inputs[1].value
+        let title = inputs[2].value
+        let content = e.target.getElementsByTagName('textarea')[0].value;
+
+        dispatch(sendContact({ name, email, title, content }))
+
+        inputs[0].value = ''
+        inputs[1].value = ''
+        inputs[2].value = ''
+        e.target.getElementsByTagName('textarea')[0].value = ''
+
+    }
+
+    const onInputChange = (e) => {
+        let target = e.target;
+        if (target.value.length > target.maxLength) {
+            target.value = target.value.slice(0, this.maxLength);
+        }
+
     }
 
     return (
@@ -66,7 +66,7 @@ export default function Footer()
                             <div className="my-contact-phone">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     className="phone-icon bi bi-telephone-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
+                                    <path fillRule="evenodd"
                                         d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
                                 </svg>
                                 <span>Điện thoại: (+84) 24.37547.461</span>
@@ -78,16 +78,16 @@ export default function Footer()
                                     <div className="input-name">
                                         <div className="form-contact-control your-name">
                                             <input type="text" className="name-input form-input" placeholder=" " name="name"
-                                                maxlength="250" required
-                                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                                                maxLength="250" required
+                                                onInput={onInputChange} />
                                             <label className="name-label form-label">Họ tên</label>
                                         </div>
                                     </div>
                                     <div className="input-email">
                                         <div className="form-contact-control your-email">
                                             <input type="email" className="email-input form-input" placeholder=" " name="email"
-                                                maxlength="50" required
-                                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                                                maxLength="50" required
+                                                onInput={onInputChange} />
                                             <label className="email-label form-label">Email</label>
                                         </div>
                                     </div>
@@ -96,8 +96,8 @@ export default function Footer()
                                     <div className="input-full">
                                         <div className="form-contact-control your-subject">
                                             <input type="text" className="subject-input form-input" placeholder=" " name="title"
-                                                maxlength="255" required
-                                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                                                maxLength="255" required
+                                                onInput={onInputChange} />
                                             <label className="subject-label form-label">Chủ đề</label>
                                         </div>
                                     </div>
@@ -106,14 +106,14 @@ export default function Footer()
                                     <div className="input-full">
                                         <div className="form-contact-control your-mess">
                                             <textarea className="mess-input form-input" placeholder=" " rows="5" name="message"
-                                                maxlength="5000" required
-                                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"></textarea>
+                                                maxLength="5000" required
+                                                onInput={onInputChange}></textarea>
                                             <label className="mess-label form-label">Nội dung</label>
                                         </div>
                                     </div>
                                 </div>
                                 <button type="submit" className="btn form-send">Gửi</button>
-                                <Popup status = {statusPopup} title = {"Thông báo"} content = {"Gửi thành công. Sau một thời gian, hãy kiểm tra email của bạn. Cảm ơn bạn!"} onChangeStatus = {setStatusPopup}/>
+                                <Popup status={statusPopup} title={"Thông báo"} content={"Gửi thành công. Sau một thời gian, hãy kiểm tra email của bạn. Cảm ơn bạn!"} onChangeStatus={setStatusPopup} />
                             </form>
                         </div>
                     </div>
@@ -152,11 +152,13 @@ export default function Footer()
                         <div className="footer-category">
                             <h3 className="footer-heading">Chủ đề nổi bật</h3>
                             <ul className="footer-list">
-                                {categoriesFooter.map(cate =>
-                                {
+                                {categoriesFooter.map(cate => {
                                     return (
                                         <li key={cate.id}>
-                                            <Link to={`/category/${cate.id}`}>{cate.name}</Link>
+                                            <Link to={`/category/${cate.id}`}
+                                                onClick={e => {
+                                                    window.scrollTo(0, 0);
+                                                }}>{cate.name}</Link>
                                         </li>
                                     )
                                 })}
@@ -165,11 +167,13 @@ export default function Footer()
                         <div className="footer-hashtag">
                             <h3 className="footer-heading">Hashtag nổi bật</h3>
                             <ul className="footer-list">
-                                {hashtagsFooter.map(hashtag =>
-                                {
+                                {hashtagsFooter.map(hashtag => {
                                     return (
-                                        <li key={hashtag.id}>
-                                            <Link to={`/tag/${hashtag.id}`}>#<i>{hashtag.name}</i></Link>
+                                        <li key={hashtag.id} >
+                                            <Link to={`/hashtag/${hashtag.id}`}
+                                                onClick={e => {
+                                                    window.scrollTo(0, 0);
+                                                }}>#<i>{hashtag.name}</i></Link>
                                         </li>
                                     )
                                 })}
