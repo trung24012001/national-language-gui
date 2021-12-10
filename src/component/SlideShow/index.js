@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import './style.scss';
 
 
 
-export default function SlideShow() {
+export default function SlideShow({ populatePosts }) {
     const slideIndex = useRef(1);
+    const history = useHistory();
 
     const showSlides = (n) => {
         let slides = document.getElementsByClassName("mySlides");
@@ -45,35 +47,31 @@ export default function SlideShow() {
     return (
         <div className="slide-show">
             <div className="slideshow-container">
-
-                <div className="mySlides fade">
-                    <div className="numbertext">1 / 3</div>
-                    <img src="./flag-vn.svg" style={{ width: '100%', height: '400px' }} />
-                    <div className="text">Caption Text</div>
-                </div>
-
-                <div className="mySlides fade">
-                    <div className="numbertext">2 / 3</div>
-                    <img src="./flag-vn.svg" style={{ width: '100%', height: '400px' }} />
-                    <div className="text">Caption Two</div>
-                </div>
-
-                <div className="mySlides fade">
-                    <div className="numbertext">3 / 3</div>
-                    <img src="./flag-vn.svg" style={{ width: '100%', height: '400px' }} />
-                    <div className="text">Caption Three</div>
-                </div>
-
+                {populatePosts.map(p => {
+                    return (
+                        <div className="mySlides fade"
+                            key={p.id}
+                            onClick={e => {
+                                e.preventDefault();
+                                history.push(`/post/${p.id}`)
+                            }}>
+                            {/* <div className="numbertext">1 / 5</div> */}
+                            <img src={p.image} style={{ width: '100%', height: '400px' }} />
+                            <div className="text"><i>{p.title}</i></div>
+                        </div>
+                    )
+                })}
                 <a className="prev" onClick={e => plusSlides(-1)}>&#10094;</a>
                 <a className="next" onClick={e => plusSlides(1)}>&#10095;</a>
-
             </div>
             <br />
 
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center', margin: '30px 0px' }}>
                 <span className="dot" onClick={e => currentSlide(1)}></span>
                 <span className="dot" onClick={e => currentSlide(2)}></span>
                 <span className="dot" onClick={e => currentSlide(3)}></span>
+                <span className="dot" onClick={e => currentSlide(4)}></span>
+                <span className="dot" onClick={e => currentSlide(5)}></span>
             </div >
         </div >
     )

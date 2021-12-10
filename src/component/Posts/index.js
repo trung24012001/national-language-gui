@@ -12,17 +12,17 @@ import Loading from '../Loading';
 
 const PostCard = ({ post }) => {
   const history = useHistory();
-  const [shadow, setShadow] = useState(3);
+  
   const getImageUrl = (path) => {
     // return serviceUrl.concat(path);
     return path;
   }
+  const [shadow, setShadow] = useState(3);
   const mouseOver = (e, id) => {
-    setShadow(6)
+    setShadow(7)
   }
 
   const mouseOut = (e, id) => {
-
     setShadow(3)
   }
   const handleShowPost = (event, id) => {

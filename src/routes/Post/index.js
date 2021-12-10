@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import parser from 'html-react-parser';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOnePost } from '../../store/reducer/post.reducer'
+import { getOnePost, getRelatePosts } from '../../store/reducer/post.reducer'
 import './post.scss'
 import { serviceUrl } from '../../ultils';
 import Loading from '../../component/Loading';
@@ -12,17 +12,23 @@ export default function Post() {
     const { postId } = useParams();
     const dispatch = useDispatch();
     const post = useSelector(state => state.postReducer.post);
-
+    const relatePosts = useSelector(state => state.postReducer.relatePosts);
     useEffect(() => {
         dispatch(getOnePost({ postId }))
+
     }, [postId])
+
+    useEffect(() => {
+        if (post) {
+            dispatch(getRelatePosts({ cateId: post.category_id }))
+        }
+    }, [post])
 
     return (
 
         <div className="post-component">
             {post ? <>
                 <div className="post-image">
-                    {/* <img src={`${serviceUrl}/${post.image}`} /> */}
                     <img height="500px" src={`${post.image}`} />
                 </div>
                 <div className="post-container">
@@ -41,9 +47,23 @@ export default function Post() {
                             {post.content && parser(post.content)}
                         </div>
                     </div>
-                    {/* <div className="post-relative-list" >
-
-                    </div> */}
+                    <div className="post-relative-list" >
+                        <h3>Relative Posts</h3>
+                        {relatePosts.map(rep => {
+                            console.log(rep);
+                            return (
+                                <div className="relate-post" key={rep.id}>
+                                    <div>
+                                        <img width="100%" src={rep.image} />
+                                        <strong>{rep.title}</strong>
+                                    </div>
+                                    <div>
+                                        {rep.content_preview}
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </>
                 :

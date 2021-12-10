@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { checkWin } from "../helpers/Helpers";
 
-const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAgain }) => {
+const Popup = ({ correctLetters, wrongLetters, selectedWord, setPlayable, playAgain, timeout }) => {
   let finalMessage = "";
   let finalMessageRevealWord = "";
   let playable = true;
 
+  if (timeout) {
+    finalMessage = "Chúc bạn may mắn lần sau. 😕";
+    finalMessageRevealWord = `...từ đó là: ${selectedWord}`;
+    playable = false;
+  }
+
   if (checkWin(correctLetters, wrongLetters, selectedWord) === "win") {
-    finalMessage = "Congratulations! You won! 😃";
+    finalMessage = "Chúc mừng! Bạn đã thắng! 😃";
     playable = false;
   } else if (checkWin(correctLetters, wrongLetters, selectedWord) === "lose") {
-    finalMessage = "Unfortunately you lost. 😕";
-    finalMessageRevealWord = `...the word was: ${selectedWord}`;
+    finalMessage = "Chúc bạn may mắn lần sau. 😕";
+    finalMessageRevealWord = `...từ đó là: ${selectedWord}`;
     playable = false;
   }
 

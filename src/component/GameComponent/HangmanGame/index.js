@@ -9,7 +9,7 @@ import { showNotification as show } from "./helpers/Helpers";
 import "./styles/App.scss";
 
 const words = [
-    "xinchao"
+    "xin chao",
 ];
 let selectedWord = words[Math.floor(Math.random() * words.length)];
 
@@ -18,6 +18,34 @@ function App() {
     const [correctLetters, setCorrectLetters] = useState([]);
     const [wrongLetters, setWrongLetters] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
+    const [time, setTime] = useState(0);
+
+    useEffect(() => {
+        let interval = setInterval(() => {
+            setTime(time => {
+                return time += 1;
+            });
+        }, 1000)
+
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, [])
+
+    const getSecondToTime = (seconds) => {
+        if (seconds < 10) return `0:0${time}`;
+        else if (seconds < 60) return `0:${time}`;
+        else {
+            let minutes = Math.round(seconds / 60);
+
+            if (seconds % 60 < 10) {
+                return `${minutes}:0${seconds % 60}`;
+            }
+
+            return `${minutes}:${seconds % 60}`;
+        }
+    }
 
     useEffect(() => {
         const handleKeydown = (event) => {
@@ -50,6 +78,7 @@ function App() {
         // Empty Arrays
         setCorrectLetters([]);
         setWrongLetters([]);
+        setTime(0);
 
         const random = Math.floor(Math.random() * words.length);
         selectedWord = words[random];
@@ -57,14 +86,26 @@ function App() {
 
     return (
         <div className="hangman-game">
+            <div style={{
+                position: 'absolute',
+                fontSize: '20px',
+                fontWeight: 600,
+                left: '50px',
+                top: '50px'
+            }}>
+                Time: {getSecondToTime(time)}
+            </div>
             <Header />
             <div className="game-container">
                 <Figure wrongLetters={wrongLetters} />
                 <WrongLetters wrongLetters={wrongLetters} />
                 <Word selectedWord={selectedWord} correctLetters={correctLetters} />
             </div>
-            <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain} />
-            { showNotification && <Notification  showNotification={showNotification} /> }
+            <Popup correctLetters={correctLetters} wrongLetters={wrongLetters}
+                selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain}
+                timeout={time > 300}
+            />
+            {showNotification && <Notification showNotification={showNotification} />}
         </div>
     );
 }

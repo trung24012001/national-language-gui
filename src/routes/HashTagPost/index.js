@@ -7,7 +7,7 @@ import './style.scss';
 
 export default function HashTagPost() {
     const { hashTagId } = useParams();
-    const posts = useSelector(state => state.postReducer.posts);
+    const hashtagPosts = useSelector(state => state.postReducer.hashtagPosts);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getPosts({ hashTagId }))
@@ -15,7 +15,7 @@ export default function HashTagPost() {
 
     return (
         <div className="hashtag-post">
-            <Posts posts={posts} />
+            <Posts posts={hashtagPosts} />
         </div>
     )
 }

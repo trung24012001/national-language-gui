@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,10 +9,26 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { useHistory } from 'react-router';
 
 
-export default function MediaCard({ name, path }) {
-    const history = useHistory()
+export default function GameCard({ name, path }) {
+    const history = useHistory();
+    const [shadow, setShadow] = useState(3);
+
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card
+            onMouseOver={e => {
+                setShadow(7)
+            }}
+            onMouseOut={e => {
+                setShadow(3)
+            }}
+            onClick={e => {
+                history.push(`/game/${path}`)
+            }}
+            elevation={shadow}
+            sx={{
+                maxWidth: 345,
+                cursor: 'pointer'
+            }}>
             <CardMedia
                 component="img"
                 image={`${path}-game.jpg`}
@@ -28,11 +44,11 @@ export default function MediaCard({ name, path }) {
                     Chơi ngay
                 </Typography>
             </CardContent>
-            <CardActions>
+            {/* <CardActions>
                 <Button startIcon={<PlayCircleIcon />} onClick={e => {
                     history.push(`/game/${path}`)
                 }} size="small">PLAY</Button>
-            </CardActions>
+            </CardActions> */}
         </Card>
     );
 }

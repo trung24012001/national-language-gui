@@ -7,8 +7,8 @@ import Posts from '../../component/Posts';
 export default function CategoryPost() {
     const { cateId } = useParams();
     const categories = useSelector(state => state.postReducer.categories);
-    const [cateName] = useState(categories.find(cate => cate.id == cateId).name)
-    const posts = useSelector(state => state.postReducer.posts);
+    const [cateName] = useState((categories.find(cate => cate.id == cateId) || {}).name)
+    const categoryPosts = useSelector(state => state.postReducer.categoryPosts);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getPosts({ cateId }))
@@ -21,7 +21,7 @@ export default function CategoryPost() {
                 fontSize: '24px',
                 marginLeft: '50px'
             }}>{cateName}</div>
-            <Posts posts={posts} />
+            <Posts posts={categoryPosts} />
         </div >
     )
 }

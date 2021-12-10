@@ -26,7 +26,6 @@ export default function HomePage() {
 
     const searchDebounce = useCallback(_.debounce(async (text) => {
         let search = posts.filter(post => {
-            console.log(post.category.name.toLowerCase())
             let check = post.title.toLowerCase().includes(text);
             if (!check) {
                 check = post.category.name.toLowerCase().includes(text);
@@ -59,7 +58,7 @@ export default function HomePage() {
         }}>
 
             <div className="home-center">
-                <SlideShow />
+                {posts.length > 0 && <SlideShow populatePosts={posts.filter((p, idx) => idx < 5)} />}
                 <div className="home-search">
                     <div className="search-post">
                         <SearchIcon />

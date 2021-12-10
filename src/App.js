@@ -8,6 +8,9 @@ import GamePage from './routes/GamePage';
 import HangmanGame from './component/GameComponent/HangmanGame'
 import Layout from './component/Layout';
 import CategoryPost from './routes/CategoryPost';
+import HashTagPost from './routes/HashTagPost';
+import QuizzGame from './component/GameComponent/QuizzGame';
+import MemoryGame from './component/GameComponent/MemoryGame'
 
 export default function App() {
 
@@ -30,17 +33,17 @@ export default function App() {
         <Layout path="/category/:cateId">
           <CategoryPost />
         </Layout>
-        <Layout path="/hashtag/:cateId">
-          <CategoryPost />
+        <Layout path="/hashtag/:hashTagId">
+          <HashTagPost />
         </Layout>
         <Route path="/game/hangman">
           <HangmanGame />
         </Route>
         <Route path="/game/memory">
-          <HangmanGame />
+          <MemoryGame />
         </Route>
         <Route path="/game/quizz">
-          <HangmanGame />
+          <QuizzGame />
         </Route>
       </Switch>
     </div>

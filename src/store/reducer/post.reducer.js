@@ -8,11 +8,14 @@ export const getPosts = createAsyncThunk('posts/getPosts', async (payload, { rej
         if (payload.cateId) {
             response = await service.get(`/api/category/${payload.cateId}/all-post`);
         } else if (payload.hashTagId) {
-            response = await service.get(`/api/hashtag/${payload.hashTagId}/all-post`);
+            response = await service.get(`/api/tag/${payload.hashTagId}/all-post`);
         } else {
             response = await service.get('/api/post');
         }
-        return response.data;
+        return {
+            type: payload,
+            data: response.data
+        };
 
     } catch (error) {
         console.log(error);
@@ -20,6 +23,19 @@ export const getPosts = createAsyncThunk('posts/getPosts', async (payload, { rej
     }
 
 
+})
+
+export const getFavoritePosts = createAsyncThunk('posts/getFavoritePosts', async (payload, { rejectWithValue }) => {
+
+    try {
+        let response = await service.get('/api/favorite');
+        console.log(response.data);
+        return response.data;
+
+    } catch (error) {
+        console.log(error);
+        return rejectWithValue({ error: 'could not get favorite posts' })
+    }
 })
 
 export const getOnePost = createAsyncThunk('posts/getOnePost', async ({ postId }) => {
@@ -70,9 +86,13 @@ export const postSlice = createSlice({
     name: 'Posts',
     initialState: {
         posts: [],
+        categoryPosts: [],
+        hashtagPosts: [],
+        favoritePosts: [],
+        relatePosts: [],
         categories: [],
-        categoriesFooter: [],
         hashtags: [],
+        categoriesFooter: [],
         hashtagsFooter: [],
         post: null,
         initLoading: false,
@@ -84,7 +104,14 @@ export const postSlice = createSlice({
             state.posts = [];
         },
         [getPosts.fulfilled]: (state, action) => {
-            state.posts = action.payload;
+            let { type, data } = action.payload;
+            if (type.cateId) {
+                state.categoryPosts = data;
+            } else if (type.hashTagId) {
+                state.hashtagPosts = data;
+            } else {
+                state.posts = data;
+            }
             console.log(action.payload)
             state.initLoading = false;
         },
@@ -115,27 +142,45 @@ export const postSlice = createSlice({
             state.categoriesFooter = action.payload;
         },
         [getCategoriesFooter.rejected]: (state, action) => {
-            state.categoriesFooter = action.payload;
+            console.log('could not get category')
         },
         [getHashtags.fulfilled]: (state, action) => {
             state.hashtags = action.payload;
 
         },
         [getHashtags.rejected]: (state, action) => {
-            state.hashtags = action.payload;
+            console.log('could not get category')
         },
         [getHashtagsFooter.fulfilled]: (state, action) => {
             state.hashtagsFooter = action.payload;
         },
         [getHashtagsFooter.rejected]: (state, action) => {
-            state.hashtagsFooter = action.payload;
+            console.log('could not get category')
+        },
+        [getFavoritePosts.pending]: (state, action) => {
+            state.initLoading = true;
+        },
+        [getFavoritePosts.fulfilled]: (state, action) => {
+            state.favorites = action.payload;
+            state.initLoading = false;
+        },
+        [getFavoritePosts.rejected]: (state, action) => {
+            console.log('could not get category');
+            state.initLoading = false;
         },
     },
     reducers: {
-
+        getRelatePosts: (state, action) => {
+            let { cateId } = action.payload;
+            state.relatePosts = state.posts.filter(p => {
+                console.log(p.category_id, cateId)
+                return p.category_id === cateId;
+            });
+        }
     }
 })
 
 
+export const { getRelatePosts } = postSlice.actions;
 
 export default postSlice.reducer
