@@ -10,7 +10,9 @@ import Layout from './component/Layout';
 import CategoryPost from './routes/CategoryPost';
 import HashTagPost from './routes/HashTagPost';
 import QuizzGame from './component/GameComponent/QuizzGame';
-import MemoryGame from './component/GameComponent/MemoryGame'
+import QuizzLevel from './component/GameComponent/QuizzGame/QuizzLevel';
+import MemoryGame from './component/GameComponent/MemoryGame';
+
 
 export default function App() {
 
@@ -42,8 +44,11 @@ export default function App() {
         <Route path="/game/memory">
           <MemoryGame />
         </Route>
-        <Route path="/game/quizz">
+        <Route exact path="/game/quizz">
           <QuizzGame />
+        </Route>
+        <Route path="/game/quizz/:level">
+          <QuizzLevel />
         </Route>
       </Switch>
     </div>

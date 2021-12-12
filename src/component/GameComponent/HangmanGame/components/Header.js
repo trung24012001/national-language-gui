@@ -11,14 +11,14 @@ const Header = () => {
     Swal.fire({
       icon: "warning",
       title: "Quy tắc",
-      text: "Bạn phải đoán chính xác từ cần tìm!",
+      text: "Nhập phím từ bàn phím để lựa chọn!",
       confirmButtonColor: "#2563EB",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           icon: "info",
           title: "Thông tin",
-          text: "Có 45 từ được chọn ngẫu nhiên!",
+          text: "Bạn không cần nhập từ có dấu. Hệ thống sẽ giúp bạn!",
           confirmButtonColor: "#2563EB",
         });
       }

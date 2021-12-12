@@ -1,111 +1,70 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { getQuestions } from '../../../store/reducer/game.reducer';
-import './style.scss';
 import { Button } from '@mui/material';
+import { useHistory } from 'react-router';
+import Loading from '../../Loading';
+import './quizzGame.scss';
+
 
 export default function QuizzGame() {
 	const dispatch = useDispatch();
-	const rawQuestion = useSelector(state => state.gameReducer.questions);
-	const [currentQuestion, setCurrentQuestion] = useState(0);
-	const [showScore, setShowScore] = useState(false);
-	const [score, setScore] = useState(0);
-
-
-	const questions = [
-		{
-			questionText: 'What is the capital of France?',
-			answerOptions: [
-				{ answerText: 'New York', isCorrect: false },
-				{ answerText: 'London', isCorrect: false },
-				{ answerText: 'Paris', isCorrect: true },
-				{ answerText: 'Dublin', isCorrect: false },
-			],
-		},
-		{
-			questionText: 'Who is CEO of Tesla?',
-			answerOptions: [
-				{ answerText: 'Jeff Bezos', isCorrect: false },
-				{ answerText: 'Elon Musk', isCorrect: true },
-				{ answerText: 'Bill Gates', isCorrect: false },
-				{ answerText: 'Tony Stark', isCorrect: false },
-			],
-		},
-		{
-			questionText: 'The iPhone was created by which company?',
-			answerOptions: [
-				{ answerText: 'Apple', isCorrect: true },
-				{ answerText: 'Intel', isCorrect: false },
-				{ answerText: 'Amazon', isCorrect: false },
-				{ answerText: 'Microsoft', isCorrect: false },
-			],
-		},
-		{
-			questionText: 'How many Harry Potter books are there?',
-			answerOptions: [
-				{ answerText: '1', isCorrect: false },
-				{ answerText: '4', isCorrect: false },
-				{ answerText: '6', isCorrect: false },
-				{ answerText: '7', isCorrect: true },
-			],
-		},
-	];
+	const questions = useSelector(state => state.gameReducer.questions);
+	const gameLoading = useSelector(state => state.gameReducer.gameLoading);
+	const history = useHistory();
 
 	useEffect(() => {
-		dispatch(getQuestions());
+		if (!questions.length) {
+			dispatch(getQuestions());
+		}
+
 	}, [])
 
-	const handleAnswerOptionClick = (isCorrect) => {
-		if (isCorrect) {
-			setScore(score + 1);
-		}
 
-		const nextQuestion = currentQuestion + 1;
-		if (nextQuestion < questions.length) {
-			setCurrentQuestion(nextQuestion);
-		} else {
-			setShowScore(true);
-		}
-	};
+	const chooseLevel = (e, level) => {
+		e.preventDefault();
+		history.push(`/game/quizz/${level}`);
+	}
+
 	return (
 		<div className="quizz-game">
-			<div className='quizz-container'>
-				{showScore ? (
-					<div className='score-section'>
-						<div>
-							You scored {score} out of {questions.length}
-						</div>
-						<Button>
-							Play Again
-						</Button>
-
-					</div>
-				) : (
+			{
+				gameLoading ?
+					<Loading />
+					:
 					<>
-						<div className='question-section'>
-							<div className='question-count'>
-								<span>Question {currentQuestion + 1}</span>/{questions.length}
-							</div>
-							<div className='question-text'>{questions[currentQuestion].questionText}</div>
+						<div className='intro-text'>
+							<span>Hãy xem bạn hiểu <strong style={{color: 'yellow'}}> Tiếng Việt </strong> bao nhiêu !</span>
 						</div>
-						<div>
-							<Button>
-								Answer
-							</Button>
-							<Button>
-								Next
-							</Button>
+						<div className='level-text'>
+
+							<div className='content'>
+								Chọn cấp độ phù hợp
+							</div>
+						</div>
+						<div className='btn-level'>
+							<Button sx={{ color: 'green' }} onClick={e => chooseLevel(e, 1)}>Dễ</Button>
+							<Button sx={{ color: 'greenyellow' }} onClick={e => chooseLevel(e, 2)}> Dễ vừa</Button>
+							<Button sx={{ color: 'yellow' }} onClick={e => chooseLevel(e, 3)}>Bình thường</Button>
+							<Button sx={{ color: 'orange' }} onClick={e => chooseLevel(e, 4)} >Khó</Button>
+							<Button sx={{ color: 'red' }} onClick={e => chooseLevel(e, 5)}>Siêu khó</Button>
 						</div>
 
-						<div className='answer-section'>
-							{questions[currentQuestion].answerOptions.map((answerOption) => (
-								<button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
-							))}
-						</div>
 					</>
-				)}
+			}
+			<div style={{
+				position: 'absolute',
+				bottom: 0,
+
+			}}>
+				<Button style={{
+					width: '150px',
+					color: '#fff'
+				}}
+					onClick={e => { history.push('/game') }}
+				>Thoát</Button>
 			</div>
-		</div>
+		</div >
 
 
 	);

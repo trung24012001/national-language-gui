@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { service } from '../../ultils'
+import { service } from '../../utils'
 
 export const getQuestions = createAsyncThunk('game/getQuestions', async (payload, { rejectWithValue }) => {
 
@@ -25,6 +25,7 @@ export const gameSlice = createSlice({
         questions: [],
         answers: [],
         gameLoading: false,
+        score: 0,
 
     },
     extraReducers: {

@@ -4,10 +4,12 @@ const Word = ({ selectedWord, correctLetters }) => {
   return (
     <div className="word">
       {selectedWord.split("").map((letter, i) => {
-        if (letter == " ") return (
-          <span style={{width: '18px'}}>
-          </span>
-        )
+        if (letter == " ") {
+          return (
+            <span key={i} style={{ width: '18px' }}>
+            </span>
+          )
+        }
 
         return (
           <span className="letter" key={i}>

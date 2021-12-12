@@ -4,7 +4,7 @@ import parser from 'html-react-parser';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePost, getRelatePosts } from '../../store/reducer/post.reducer'
 import './post.scss'
-import { serviceUrl } from '../../ultils';
+import { serviceUrl } from '../../utils';
 import Loading from '../../component/Loading';
 import { Link } from 'react-router-dom';
 

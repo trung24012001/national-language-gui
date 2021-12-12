@@ -1,14 +1,19 @@
 import React from 'react';
 import { NavLink, useHistory, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Avatar, Button, Menu, MenuItem, MenuList } from '@mui/material';
+import { Avatar, Button, Menu, MenuItem, ListItemIcon } from '@mui/material';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import CategoryIcon from '@mui/icons-material/Category';
 import './navbar.scss'
-import { serviceUrl } from '../../ultils';
+import { serviceUrl } from '../../utils';
+import SchoolIcon from '@mui/icons-material/School';
+import HelpIcon from '@mui/icons-material/Help';
+import WorkIcon from '@mui/icons-material/Work';
+import StarIcon from '@mui/icons-material/Star';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
 
 export default function Navbar() {
     const history = useHistory();
@@ -19,9 +24,22 @@ export default function Navbar() {
         history.push(`/category/${cateId}`)
         setAnchorEl(null);
     };
-    const goLoginPage = () => {
-        window.open(`${serviceUrl}`)
+
+
+    const getCateIcon = (id) => {
+        if (id === 1) {
+            return <StarIcon sx={{ color: '#fff' }} />
+        } else if (id === 2) {
+            return <SchoolIcon sx={{ color: '#fff' }} />
+        } else if (id === 4) {
+            return <WatchLaterIcon sx={{ color: '#fff' }} />
+        } else if (id === 5) {
+            return <HelpIcon sx={{ color: '#fff' }} />
+        } else if (id === 6) {
+            return <WorkIcon sx={{ color: '#fff' }} />
+        }
     }
+
     return (
         <nav className="navbar">
             <div className="navbar-brand">
@@ -41,7 +59,7 @@ export default function Navbar() {
                         <Menu
                             PaperProps={{
                                 sx: {
-                                    width: '230px',
+                                    width: '260px',
                                     background: 'var(--third-bg-color)',
                                     color: '#fff',
                                 }
@@ -56,12 +74,18 @@ export default function Navbar() {
                         >
                             {categories.map(cate => {
                                 return (
-                                    <MenuItem key={cate.id} 
-                                    sx={{
-                                       margin: '5px',
-                                       padding: '10px'
-                                    }}
-                                    onClick={e => handleChooseCate(cate.id)}>{cate.name}</MenuItem>
+                                    <MenuItem key={cate.id}
+                                        sx={{
+                                            margin: '5px',
+                                            padding: '10px'
+                                        }}
+                                        onClick={e => handleChooseCate(cate.id)}>
+                                        <ListItemIcon>
+                                            {getCateIcon(cate.id)}
+                                        </ListItemIcon>
+
+                                        {cate.name}
+                                    </MenuItem>
 
                                 );
                             })}
@@ -74,7 +98,9 @@ export default function Navbar() {
                 </div>
             </div>
             <div className="navbar-end">
-                <Button onClick={goLoginPage} startIcon={<LoginIcon />}>Admin Login</Button>
+                <Button onClick={e => {
+                    window.open(`${serviceUrl}`)
+                }} startIcon={<LoginIcon />}>Admin Login</Button>
             </div>
         </nav >
     )

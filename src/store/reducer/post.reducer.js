@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { service } from '../../ultils'
+import { service } from '../../utils'
 
 export const getPosts = createAsyncThunk('posts/getPosts', async (payload, { rejectWithValue }) => {
 
@@ -161,7 +161,7 @@ export const postSlice = createSlice({
             state.initLoading = true;
         },
         [getFavoritePosts.fulfilled]: (state, action) => {
-            state.favorites = action.payload;
+            state.favoritePosts = action.payload;
             state.initLoading = false;
         },
         [getFavoritePosts.rejected]: (state, action) => {
