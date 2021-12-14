@@ -6,21 +6,30 @@
   align-items: center;
 
   .post-image {
-    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 80%;
+    height: 600px;
+    margin: 0 auto;
   }
 
   .post-container {
     display: flex;
     position: relative;
+    padding: 0 30px;
+    margin-top: 30px;
+
     .post-article {
       width: 60%;
-      margin: 15px auto;
+
+      margin: 0 auto;
 
       .post-title {
         margin-bottom: 30px;
         .hash-tag {
           a {
-            font-size: 1.2rem;
+            font-size: 1rem;
             text-decoration: none;
           }
           a:hover {
@@ -32,8 +41,16 @@
 
     .post-relative-list {
       width: 20%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+
       .relate-post {
-        display: flex;
+
+        cursor: pointer;
+        width: 300px;
+        margin: 15px;
       }
     }
   }

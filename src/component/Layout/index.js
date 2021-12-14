@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {
     Route
 } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getCategories, getCategoriesFooter, getHashtags, getHashtagsFooter, getPosts } from '../../store/reducer/post.reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories, getCategoriesFooter, getHashtags, getHashtagsFooter, getPosts, getRelatePosts } from '../../store/reducer/post.reducer';
 import Footer from '../Footer';
 import Navbar from '../Navbar';
 import './layout.scss'
@@ -15,8 +15,12 @@ function Layout({ children, ...rest }) {
         }
         return child;
     });
+    const posts = useSelector(state => state.postReducer.posts);
     const dispatch = useDispatch();
     useEffect(() => {
+        if (!posts.length) {
+            dispatch(getPosts({}));
+        }
         dispatch(getCategories())
         dispatch(getCategoriesFooter())
         dispatch(getHashtags())

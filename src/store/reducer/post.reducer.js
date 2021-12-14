@@ -96,12 +96,12 @@ export const postSlice = createSlice({
         hashtagsFooter: [],
         post: null,
         initLoading: false,
+        postLoading: false,
     },
     extraReducers: {
         [getPosts.pending]: (state, action) => {
             console.log('pendding')
             state.initLoading = true;
-            state.posts = [];
         },
         [getPosts.fulfilled]: (state, action) => {
             let { type, data } = action.payload;
@@ -121,16 +121,16 @@ export const postSlice = createSlice({
         },
         [getOnePost.pending]: (state, action) => {
             state.post = null;
-            state.initLoading = true;
+            state.postLoading = true;
         },
         [getOnePost.fulfilled]: (state, action) => {
             state.post = action.payload;
             console.log(action.payload)
-            state.initLoading = false;
+            state.postLoading = false;
         },
         [getOnePost.rejected]: (state, action) => {
             console.log('could not get a post')
-            state.initLoading = false;
+            state.postLoading = false;
         },
         [getCategories.fulfilled]: (state, action) => {
             state.categories = action.payload;
@@ -172,10 +172,9 @@ export const postSlice = createSlice({
     reducers: {
         getRelatePosts: (state, action) => {
             let { cateId } = action.payload;
-            state.relatePosts = state.posts.filter(p => {
-                console.log(p.category_id, cateId)
+            state.relatePosts = state.posts.filter((p,idx) => {
                 return p.category_id === cateId;
-            });
+            }).splice(0, 5);
         }
     }
 })

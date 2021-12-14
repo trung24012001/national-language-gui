@@ -16,13 +16,6 @@ export default function HomePage() {
     const [searchLoading, setSearchLoading] = useState(false);
     const [textSearch, setTextSearch] = useState('');
     const [searchList, setSearchList] = useState([]);
-    const dispatch = useDispatch()
-
-
-    useEffect(() => {
-        dispatch(getPosts({}))
-
-    }, [])
 
     const searchDebounce = useCallback(_.debounce(async (text) => {
         let search = posts.filter(post => {
