@@ -1,6 +1,6 @@
 
 
-const serviceUrl = "http://chuquocnguuet.herokuapp.com"
+const serviceUrl = "http://chuquocngu-uet.herokuapp.com"
 
 export {
     serviceUrl

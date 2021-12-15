@@ -6,8 +6,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import LoadingButton from '@mui/lab/LoadingButton';
 import _ from 'lodash';
 import { getPosts } from '../../store/reducer/post.reducer';
-import Posts from '../../component/Posts';
-import SlideShow from '../../component/SlideShow';
+import Posts from '../../components/Posts';
+import SlideShow from '../../components/SlideShow';
 
 
 export default function HomePage() {

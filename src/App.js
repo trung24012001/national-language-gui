@@ -5,14 +5,14 @@ import FavoritePage from './routes/FavoritePage';
 import './App.scss'
 import Post from './routes/Post'
 import GamePage from './routes/GamePage';
-import HangmanGame from './component/GameComponent/HangmanGame'
-import Layout from './component/Layout';
 import CategoryPost from './routes/CategoryPost';
 import HashTagPost from './routes/HashTagPost';
-import QuizzGame from './component/GameComponent/QuizzGame';
-import QuizzLevel from './component/GameComponent/QuizzGame/QuizzLevel';
-import MemoryGame from './component/GameComponent/MemoryGame';
-
+import HangmanGame from './components/GameComponent/HangmanGame'
+import Layout from './components/Layout';
+import QuizzGame from './components/GameComponent/QuizzGame';
+import QuizzLevel from './components/GameComponent/QuizzGame/QuizzLevel';
+import MemoryGame from './components/GameComponent/MemoryGame';
+import Table3dComponent from './components/GameComponent/Table3dComponent';
 
 export default function App() {
 
@@ -49,6 +49,9 @@ export default function App() {
         </Route>
         <Route path="/game/quizz/:level">
           <QuizzLevel />
+        </Route>
+        <Route path="/game/3d">
+          <Table3dComponent />
         </Route>
       </Switch>
     </div>

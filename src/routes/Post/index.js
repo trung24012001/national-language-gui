@@ -4,8 +4,8 @@ import parser from 'html-react-parser';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePost, getRelatePosts } from '../../store/reducer/post.reducer'
 import './post.scss'
-import { serviceUrl } from '../../utils';
-import Loading from '../../component/Loading';
+import { getImageUrl, serviceUrl } from '../../utils';
+import Loading from '../../components/Loading';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
@@ -32,7 +32,7 @@ const RelatePost = ({ post }) => {
 
             <img width="100%" height='200px'
                 style={{ borderRadius: '10px' }}
-                src={post.image} />
+                src={getImageUrl(post.image)} />
             <div style={{ fontSize: '18px' }}>
                 <strong>{post.title}</strong>
             </div>
@@ -41,12 +41,48 @@ const RelatePost = ({ post }) => {
             <div style={{
                 opacity: 0.6,
                 overflow: 'hidden',
-                height: !mouseOver ? 0 : 150,
+                height: !mouseOver ? 0 : '120px',
                 transition: 'height 0.7s'
             }}>
                 {post.content_preview}
             </div>
 
+        </div>
+    )
+
+}
+
+const SeeMorePost = ({ post }) => {
+    const [mouseOver, setMouseOver] = useState(false);
+    const history = useHistory();
+
+    const handleMouseOver = () => {
+        setMouseOver(true);
+    }
+
+    const handleMouseLeave = () => {
+        setMouseOver(false);
+    }
+    return (
+        <div className='footer-post'
+            onMouseOver={handleMouseOver}
+            onMouseLeave={handleMouseLeave}
+            onClick={e => {
+                e.preventDefault();
+                history.push(`/post/${post.id}`)
+            }}
+        >
+            <img src={getImageUrl(post.image)}
+                style={{
+                    borderRadius: '10px',
+                    width: !mouseOver ? '300px' : '350px',
+                    height: !mouseOver ? '200px' : '250px',
+                    transition: '.5s all'
+                }}
+            />
+            <div style={{ fontSize: '18px' }}>
+                <strong>{post.title}</strong>
+            </div>
         </div>
     )
 
@@ -59,6 +95,7 @@ export default function Post() {
     const post = useSelector(state => state.postReducer.post);
     const relatePosts = useSelector(state => state.postReducer.relatePosts);
     const initLoading = useSelector(state => state.postReducer.initLoading);
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -76,10 +113,10 @@ export default function Post() {
 
         <div className="post-component">
             {post ? <>
-                <div style={{width: '100%', background: '#000', display: 'flex'}}>
+                <div style={{ width: '100%', background: '#000', display: 'flex' }}>
                     <div className="post-image"
                         style={{
-                            backgroundImage: `url(${post.image})`,
+                            backgroundImage: `url(${getImageUrl(post.image)})`,
                         }}
                     >
                     </div>
@@ -87,7 +124,7 @@ export default function Post() {
                 <div className="post-container">
                     <div className="post-article">
                         <div className="post-title">
-                            <h2>{post.title}</h2>
+                            <h1>{post.title}</h1>
                             {Object.values(post.tags).map(tag => {
                                 return (
                                     <div key={tag.id} className="hash-tag">
@@ -99,9 +136,14 @@ export default function Post() {
                         <div className="post-content">
                             {post.content && parser(post.content)}
                         </div>
+
+                        <div className='post-info'>
+                            <div>Người đăng: {post.created_by.name}</div>
+                            <div>Ngày đăng: {post.created_at.split('T')[0]}</div>
+                        </div>
                     </div>
                     <div className="post-relative-list" >
-                        <h2>Relative Posts</h2>
+                        <h3>Relative Posts</h3>
                         {initLoading && <Loading />}
 
                         {relatePosts.map(rep => {
@@ -110,11 +152,20 @@ export default function Post() {
                             )
                         })}
                     </div>
+
+
                 </div>
                 <div className='post-footer'>
-                    <div>Bài trước</div>
-                    <div>
-                        Bài tiếp
+
+
+                    <div className='see-more'>
+                        {initLoading && <Loading />}
+
+                        {relatePosts.filter((post, idx) => idx <= 3).map(post => {
+                            return (
+                                <SeeMorePost post={post} />
+                            )
+                        })}
                     </div>
                 </div>
             </>

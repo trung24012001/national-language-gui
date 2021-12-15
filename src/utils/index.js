@@ -1,6 +1,8 @@
 export * from './config'
 export * from './axios'
 
+import { serviceUrl } from './config';
+
 const removeVietnameseTones = (str) => {
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
     str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -27,13 +29,13 @@ const removeVietnameseTones = (str) => {
     // Remove punctuations
     // Bỏ dấu câu, kí tự đặc biệt
     str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
-    return str;
-  }
+    return str.toLowerCase();
+}
 
 const msToTime = (ms) => {
-    
+
     let seconds = ms / 1000;
-    
+
     if (seconds < 10) return `0:0${seconds}`;
     else if (seconds < 60) return `0:${seconds}`;
     else {
@@ -47,4 +49,9 @@ const msToTime = (ms) => {
     }
 }
 
-export { msToTime, removeVietnameseTones }
+const getImageUrl = (path) => {
+
+    return serviceUrl.concat(path);
+}
+
+export { msToTime, removeVietnameseTones, getImageUrl }

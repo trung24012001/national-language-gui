@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Comfortaa", cursive;
 
   .post-image {
     background-repeat: no-repeat;
@@ -37,6 +38,10 @@
           }
         }
       }
+
+      .post-info {
+        margin-top: 100px;
+      }
     }
 
     .post-relative-list {
@@ -44,14 +49,30 @@
       position: relative;
       display: flex;
       flex-direction: column;
-
+      align-items: center;
+      // justify-content: flex-end;
 
       .relate-post {
-
         cursor: pointer;
         width: 300px;
         margin: 15px;
       }
+    }
+
+  }
+
+  .post-footer {
+    margin-top: 70px;
+
+    .footer-post {
+      cursor: pointer;
+      width: 350px;
+      margin: 30px;
+    }
+
+    .see-more {
+      display: flex;
+      height: 350px;
     }
   }
 }
