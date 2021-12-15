@@ -12,7 +12,8 @@ export default function HashTagPost() {
     const hashtagPosts = useSelector(state => state.postReducer.hashtagPosts);
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getPosts({ hashTagId }))
+        window.scrollTo(0, 0);
+        dispatch(getPosts({ hashTagId }));
     }, [hashTagId])
 
     useEffect(() => {

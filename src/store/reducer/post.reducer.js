@@ -133,7 +133,8 @@ export const postSlice = createSlice({
             state.postLoading = false;
         },
         [getCategories.fulfilled]: (state, action) => {
-            state.categories = action.payload;
+            let categories = action.payload;
+            state.categories = categories;
         },
         [getCategories.rejected]: (state, action) => {
             console.log('could not get category')
@@ -172,7 +173,7 @@ export const postSlice = createSlice({
     reducers: {
         getRelatePosts: (state, action) => {
             let { cateId } = action.payload;
-            state.relatePosts = state.posts.filter((p,idx) => {
+            state.relatePosts = state.posts.filter((p, idx) => {
                 return p.category_id === cateId;
             }).splice(0, 5);
         }

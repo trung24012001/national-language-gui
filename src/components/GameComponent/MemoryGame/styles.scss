@@ -1,0 +1,135 @@
+.memory-game {
+  color: #ffffff;
+  background-color: #7cc6fe;
+  min-height: 100vh;
+  max-width: 100vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    // width: 1000px;
+  }
+
+  .header {
+    width: 95vw;
+    font-size: 24px;
+    margin: 30px;
+  }
+
+  .start-game {
+    width: 450px;
+    margin: auto;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    h2 {
+      font-size: 36px;
+    }
+
+    .btn-list {
+      margin-top: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  button {
+    width: 150px;
+    margin: 15px;
+    font-size: 18px;
+    background-color: #252d4a;
+    color: #fff;
+    border-radius: 15px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    text-transform: none;
+  }
+
+  button:hover {
+    background-color: #252d4ac1;
+  }
+
+  .grid-card {
+    position: relative;
+    margin: 5px;
+
+    &::after {
+      content: "";
+      background: linear-gradient(to right, #a195a2, #fac6bd);
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      border: 2px solid rgb(194, 193, 193);
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotateY(0) perspective(100px);
+      transition: 0.4s;
+      backface-visibility: hidden;
+      cursor: pointer;
+    }
+  }
+
+  .grid-img {
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    overflow: hidden;
+    object-position: center;
+    transform: rotateY(180deg) perspective(100px);
+    transition: 0.4s;
+    backface-visibility: hidden;
+  }
+
+  .grid-div {
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    overflow: hidden;
+    object-position: center;
+    transform: rotateY(180deg) perspective(100px);
+    transition: 0.4s;
+    backface-visibility: hidden;
+  }
+
+  .grid-text {
+    background-color: #fff;
+    color: #000;
+    font-size: 28px;
+    font-family: "Comfortaa", cursive;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 150px;
+    
+  }
+
+  .grid-card-show {
+    &::after {
+      transform: rotateY(180deg) perspective(100px);
+    }
+
+    .grid-img {
+      transform: rotateY(0) perspective(100px);
+    }
+
+    .grid-div {
+      transform: rotateY(0) perspective(100px);
+    }
+  }
+
+  .grid-card-finished {
+    opacity: 0;
+  }
+}
